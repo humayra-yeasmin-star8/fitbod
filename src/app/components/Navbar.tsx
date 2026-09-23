@@ -56,7 +56,7 @@ const Navbar = () => {
           >
             <span>Plan</span>
 
-            <span className="bg-[#ccff00] text-black font-bold px-1.5 sm:px-2 py-0.5 rounded-full min-w-[18px] sm:min-w-[20px] text-center">
+            <span className="bg-[#ccff00] text-black font-bold px-1.5 sm:px-2 py-0.5 rounded-full min-width: 18px min-width: 20px text-center">
               {planCount}
             </span>
           </Link>

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Navbar from "./components/Navbar"
+import Hero from "./components/Hero"
+
 import "./globals.css";
 
 const geistSans = Geist({
@@ -26,6 +28,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="min-h-full flex flex-col bg-[#060608] text-gray-100">
         <Navbar />
+        <Hero/>
 
         <main className="flex-grow:1">
           {children}
