@@ -12,10 +12,10 @@ const Navbar = () => {
   const savedCount = 0;
 
   return (
-    <header className="sticky top-3 z-60 w-full bg-[#060608]">
-      <nav className="max-w-8xl mx-auto px-3 sm:px-6 lg:px-7 h-18 flex items-center justify-between">
+    <header className="sticky top-0 z-50 w-full bg-[#060608] border-b border-gray-800/60">
+      <nav className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-7 h-18 flex items-center justify-between">
         <Link
-          href="/"
+          href=""
           className="flex items-center gap-1 sm:gap-2 font-black text-base sm:text-xl tracking-wider text-white"
         >
           <Image src={logo} alt="" width={20} height={20} className="w-6 h-5 sm:w-7 sm:h-7"
