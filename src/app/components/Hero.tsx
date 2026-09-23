@@ -6,11 +6,11 @@ import ban from "@/banner.png";
 
 const Hero = () => {
   return (
-    <section className="pt-9.5 pb-6 px-5 md:px-18">
+    <section className="max-w-8=9xl pt-12 pb-6 px-5 md:px-9">
 
 <div className="relative overflow-hidden bg-[#13151c] border border-gray-800/80 rounded-2xl p-5 sm:p-8 lg:p-10 flex flex-col-reverse lg:flex-row items-center justify-between gap-6">
 
-        <div className="flex-1 max-w-2xl text-left">
+        <div className="flex-1 max-w-5xl text-left">
 
           <p className="text-[#ccff00] font-bold tracking-widest text-xs uppercase mb-4">
             WORKOUT LIBRARY

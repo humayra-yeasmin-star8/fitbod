@@ -13,7 +13,7 @@ const Navbar = () => {
 
   return (
     <header className="sticky top-0 z-50 w-full bg-[#060608] border-b border-gray-800/60">
-      <nav className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-7 h-18 flex items-center justify-between">
+      <nav className="max-w-7xl mx-auto px-3 sm:px-3 lg:px-2 h-18 flex items-center justify-between">
         <Link
           href=""
           className="flex items-center gap-1 sm:gap-2 font-black text-base sm:text-xl tracking-wider text-white"
@@ -66,7 +66,7 @@ const Navbar = () => {
           >
             <span>Saved</span>
 
-            <span className="border border-gray-600 text-gray-200 font-bold px-1.5 sm:px-2 py-0.5 rounded-full min-w-[18px] sm:min-w-[20px] text-center">
+            <span className="border border-gray-600 text-gray-200 font-bold px-1.5 sm:px-2 py-0.5 rounded-full  min-width: 18px min-width: 20px text-center">
               {savedCount}
             </span>
           </Link>
