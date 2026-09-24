@@ -24,44 +24,56 @@ interface PlanContextType {
   toastMessage: string | null;
 }
 
-const PlanContext = createContext<PlanContextType | undefined>(undefined);
+const PlanContext = createContext<PlanContextType | undefined>(
+  undefined
+);
 
 export const PlanProvider = ({
   children,
 }: {
   children: React.ReactNode;
 }) => {
-  const [plan, setPlan] = useState<PlanItem[]>(() => {
-    if (typeof window === "undefined") {
-      return [];
-    }
+  const [plan, setPlan] = useState<PlanItem[]>([]);
+  const [saved, setSaved] = useState<Workout[]>([]);
+  const [isLoaded, setIsLoaded] = useState(false);
 
-    const savedPlan = localStorage.getItem("fitlog_plan");
-
-    return savedPlan ? JSON.parse(savedPlan) : [];
-  });
-
-  const [saved, setSaved] = useState<Workout[]>(() => {
-    if (typeof window === "undefined") {
-      return [];
-    }
-
-    const savedWorkouts = localStorage.getItem("fitlog_saved");
-
-    return savedWorkouts ? JSON.parse(savedWorkouts) : [];
-  });
-
-  const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [toastMessage, setToastMessage] =
+    useState<string | null>(null);
 
   const toastTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    localStorage.setItem("fitlog_plan", JSON.stringify(plan));
-  }, [plan]);
+    const savedPlan = localStorage.getItem("fitlog_plan");
+    const savedWorkouts = localStorage.getItem("fitlog_saved");
+
+    if (savedPlan) {
+      setPlan(JSON.parse(savedPlan));
+    }
+
+    if (savedWorkouts) {
+      setSaved(JSON.parse(savedWorkouts));
+    }
+
+    setIsLoaded(true);
+  }, []);
 
   useEffect(() => {
-    localStorage.setItem("fitlog_saved", JSON.stringify(saved));
-  }, [saved]);
+    if (!isLoaded) return;
+
+    localStorage.setItem(
+      "fitlog_plan",
+      JSON.stringify(plan)
+    );
+  }, [plan, isLoaded]);
+
+  useEffect(() => {
+    if (!isLoaded) return;
+
+    localStorage.setItem(
+      "fitlog_saved",
+      JSON.stringify(saved)
+    );
+  }, [saved, isLoaded]);
 
   const showToast = (msg: string) => {
     if (toastTimerRef.current) {
@@ -77,16 +89,21 @@ export const PlanProvider = ({
 
   const addToPlan = (workout: Workout) => {
     if (plan.length >= 5) {
-      showToast("Cap of 5 lifts reached! Finish them before adding more.");
+      showToast(
+        "Cap of 5 lifts reached! Finish them before adding more."
+      );
       return;
     }
 
     if (
       plan.some(
-        (item) => String(item.workout.id) === String(workout.id)
+        (item) =>
+          String(item.workout.id) === String(workout.id)
       )
     ) {
-      showToast(`${workout.name} is already in today's plan!`);
+      showToast(
+        `${workout.name} is already in today's plan!`
+      );
       return;
     }
 
@@ -98,7 +115,9 @@ export const PlanProvider = ({
       },
     ]);
 
-    showToast(`Added ${workout.name} to today's plan!`);
+    showToast(
+      `Added ${workout.name} to today's plan!`
+    );
   };
 
   const removeFromPlan = (id: string | number) => {
@@ -113,7 +132,9 @@ export const PlanProvider = ({
     );
 
     if (item) {
-      showToast(`Removed ${item.workout.name} from plan.`);
+      showToast(
+        `Removed ${item.workout.name} from plan.`
+      );
     }
   };
 
@@ -152,11 +173,15 @@ export const PlanProvider = ({
         )
       );
 
-      showToast(`Removed ${workout.name} from saved.`);
+      showToast(
+        `Removed ${workout.name} from saved.`
+      );
     } else {
       setSaved((prev) => [...prev, workout]);
 
-      showToast(`Saved ${workout.name} for later!`);
+      showToast(
+        `Saved ${workout.name} for later!`
+      );
     }
   };
 

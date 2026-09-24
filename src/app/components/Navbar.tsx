@@ -1,6 +1,4 @@
 "use client";
-
-import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -10,14 +8,10 @@ import { usePlan } from "../context/PlanContext";
 const Navbar = () => {
   const pathname = usePathname();
   const { plan, saved } = usePlan();
-  
-  const [isMounted, setIsMounted] = useState(false);
 
-useEffect(() => {
-    setIsMounted(true);
-  }, []);
-  const planCount = isMounted ? plan.length : 0;
-  const savedCount = isMounted ? saved.length : 0;
+  const planCount = plan.length;
+  const savedCount = saved.length;
+
 
   return (
     <header className="sticky top-0 z-50 w-full bg-[#060608] border-b border-gray-800/60">
