@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePlan } from "@/app/context/PlanContext";
@@ -50,29 +50,32 @@ export default function MyPlanPage() {
   return duration * 8;
 };
 
-    
+const stats = useMemo(() => {
+  const currentItems =
+    activeTab === "plan"
+      ? plan.map((item) => item.workout)
+      : saved;
 
-  const stats = useMemo(() => {
-    const totalExercises = plan.length;
+  const totalExercises = currentItems.length;
 
-    const totalMinutes = plan.reduce(
-      (acc, item) =>
-        acc + (Number(item.workout.duration) || 15),
-      0
-    );
+  const totalMinutes = currentItems.reduce(
+    (acc, workout) =>
+      acc + (Number(workout.duration) || 15),
+    0
+  );
 
-    const totalCalories = plan.reduce(
-      (acc, item) =>
-        acc + getCalories(item.workout),
-      0
-    );
+  const totalCalories = currentItems.reduce(
+    (acc, workout) =>
+      acc + getCalories(workout),
+    0
+  );
 
-    return {
-      totalExercises,
-      totalMinutes,
-      totalCalories,
-    };
-  }, [plan]);
+  return {
+    totalExercises,
+    totalMinutes,
+    totalCalories,
+  };
+}, [plan, saved, activeTab]);
 
   const activeItems =
     activeTab === "plan"
@@ -113,8 +116,7 @@ export default function MyPlanPage() {
           </p>
         </div>
 
-        {/* Stats */}
-        <div className="bg-[#13151c] border border-gray-800/80 rounded-2xl p-6 md:p-8 grid grid-cols-3 gap-4">
+         <div className="bg-[#13151c] border border-gray-800/80 rounded-2xl p-6 md:p-8 grid grid-cols-3 gap-4">
 
           <div>
             <p className="text-gray-400 text-xs font-bold uppercase tracking-wider">
@@ -148,7 +150,7 @@ export default function MyPlanPage() {
 
         </div>
 
-        {/* Tabs & Sort */}
+  
         <div className="flex justify-between items-center pt-2">
 
           <div className="bg-[#13151c] p-1 rounded-xl border border-gray-800 flex gap-1">
@@ -211,7 +213,6 @@ export default function MyPlanPage() {
           </div>
         </div>
 
-        {/* Workout List */}
         {sortedItems.length === 0 ? (
 
           <div className="border border-dashed border-gray-800/90 rounded-2xl p-16 text-center space-y-4 bg-[#0d0e13]/50">
@@ -265,7 +266,7 @@ export default function MyPlanPage() {
                   }`}
                 >
 
-                  {/* Image & Info */}
+
                   <div className="flex items-center gap-4 w-full sm:w-auto">
 
                     {workout.image && (

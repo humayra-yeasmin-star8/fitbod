@@ -20,7 +20,7 @@ const Library = async () => {
   const workouts = await getWorkouts();
 
   return (
-    <section className="max-w-7xl mx-auto px-4 py-16">
+    <section className="max-w-8xl mx-auto px-9 py-15">
 
       <div className="mb-12">
 

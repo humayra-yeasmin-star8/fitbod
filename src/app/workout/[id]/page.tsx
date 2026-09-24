@@ -3,7 +3,7 @@ import Image from "next/image";
 import { Workout } from "@/types";
 import PlanButtons from "@/app/components/PlanButtons";
 
-// Fetch single workout data
+
 async function getWorkoutDetail(id: string): Promise<Workout> {
   const res = await fetch(`https://api.abcz.workers.dev/api/fitlog/${id}`, {
     cache: "no-store",
@@ -33,7 +33,7 @@ export default async function WorkoutDetailPage({
     );
   }
 
-  // Key Specs Table Data matching reference design
+
   const specs = [
     { label: "EQUIPMENT", value: workout.equipment || "Barbell, Bench" },
     { label: "DIFFICULTY", value: "Intermediate" },
@@ -44,7 +44,7 @@ export default async function WorkoutDetailPage({
     { label: "RATING", value: workout.rating ? workout.rating.toFixed(1) : "4.8" },
   ];
 
-  // Instructions steps matching reference design
+
   const instructions = [
     "Lie on the bench with eyes under the bar and feet planted.",
     "Unrack with locked elbows and lower the bar to mid-chest.",
@@ -54,26 +54,23 @@ export default async function WorkoutDetailPage({
 
   return (
     <section className="bg-[#0b0c10] text-white min-h-screen pt-28 pb-16 px-4 md:px-8">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-8xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
           
-          {/* Left Column: Media / Illustration */}
+          
           <div className="lg:col-span-6 relative aspect-square w-full rounded-3xl overflow-hidden border border-gray-800 shadow-2xl">
             {workout.image && (
               <Image
                 src={workout.image}
-                alt={workout.name || "Workout Image"}
-                fill
-                className="object-cover"
-                priority
+                alt={workout.name || "Workout Image"} fill className="object-cover" priority
               />
             )}
           </div>
 
-          {/* Right Column: Title, Specs, Instructions, Actions */}
+  
           <div className="lg:col-span-6 space-y-8">
             
-            {/* Header & Subtitle */}
+          
             <div className="space-y-3">
               <h1 className="text-white text-4xl sm:text-5xl font-extrabold font-oswald uppercase tracking-tight leading-none">
                 {workout.name}
@@ -83,7 +80,7 @@ export default async function WorkoutDetailPage({
                 A compound press that builds chest thickness, triceps, and pressing power from a stable bench.
               </p>
 
-              {/* Category Pills */}
+            
               <div className="flex flex-wrap gap-2 pt-2">
                 {workout.category && workout.category.length > 0 ? (
                   workout.category.map((cat, index) => (
@@ -107,7 +104,7 @@ export default async function WorkoutDetailPage({
               </div>
             </div>
 
-            {/* Key Specs Table Panel */}
+
             <div className="bg-[#13151c] rounded-2xl border border-gray-800/80 divide-y divide-gray-800/60 overflow-hidden">
               {specs.map((spec, index) => (
                 <div
@@ -124,7 +121,7 @@ export default async function WorkoutDetailPage({
               ))}
             </div>
 
-            {/* Instructions Section */}
+      
             <div className="space-y-4">
               <h3 className="text-white font-bold text-xs tracking-widest uppercase">
                 INSTRUCTIONS
