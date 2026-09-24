@@ -1,6 +1,6 @@
-FitLog
+FitBod
 
-FitLog is a workout tracking web application where users can explore workouts, save their favorite workouts, and create their own workout plan.
+FitBod is a workout tracking web application where users can explore workouts, save their favorite workouts, and create their own workout plan.
 
 Technologies Used
 
